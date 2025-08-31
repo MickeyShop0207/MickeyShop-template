@@ -1,0 +1,406 @@
+// 自定義輸入框樣式
+.custom-input-wrapper {
+  width: 100%;
+  
+  // 標籤
+  .custom-input__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    line-height: 1.4;
+  }
+
+  .custom-input__required {
+    color: #ef4444;
+    margin-left: 2px;
+  }
+
+  // 消息
+  .custom-input__message {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .custom-input__error {
+    color: #ef4444;
+  }
+
+  .custom-input__success {
+    color: #10b981;
+  }
+
+  .custom-input__helper {
+    color: #6b7280;
+  }
+}
+
+// 輸入框基礎樣式
+.custom-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+
+  // 尺寸
+  &--small {
+    height: 32px;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+  &--medium {
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  &--large {
+    height: 48px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  // 變體
+  &--default {
+    background: #ffffff;
+    border-color: #d1d5db;
+
+    &:hover {
+      border-color: #9ca3af;
+    }
+
+    &:focus, &.ant-input-focused {
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+  }
+
+  &--filled {
+    background: #f3f4f6;
+    border-color: transparent;
+
+    &:hover {
+      background: #e5e7eb;
+    }
+
+    &:focus, &.ant-input-focused {
+      background: #ffffff;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+  }
+
+  &--bordered {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+
+    &:hover {
+      border-color: #d1d5db;
+    }
+
+    &:focus, &.ant-input-focused {
+      border-color: #ff6b9d;
+    }
+  }
+
+  &--borderless {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(243, 244, 246, 0.5);
+    }
+
+    &:focus, &.ant-input-focused {
+      background: #ffffff;
+      border-color: #ff6b9d;
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+  }
+
+  // 狀態
+  &--error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+
+  &--success {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  }
+
+  &--loading {
+    position: relative;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  // 帶圖標的輸入框
+  &--has-left-icon {
+    .ant-input-prefix {
+      margin-right: 8px;
+      color: #9ca3af;
+    }
+  }
+
+  &--has-right-icon {
+    .ant-input-suffix {
+      margin-left: 8px;
+      color: #9ca3af;
+    }
+  }
+
+  // 加載動畫
+  &__spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #ff6b9d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  // 佔位符樣式
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  // 禁用狀態
+  &:disabled, &.ant-input-disabled {
+    background: #f9fafb;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+// 密碼輸入框
+.custom-password-input {
+  .ant-input-password-icon {
+    color: #9ca3af;
+    
+    &:hover {
+      color: #6b7280;
+    }
+  }
+}
+
+// 文本域
+.custom-textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  resize: vertical;
+  min-height: 80px;
+
+  // 尺寸
+  &--small {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    min-height: 60px;
+  }
+
+  &--medium {
+    padding: 12px;
+    font-size: 14px;
+    min-height: 80px;
+  }
+
+  &--large {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 10px;
+    min-height: 100px;
+  }
+
+  &:hover {
+    border-color: #9ca3af;
+  }
+
+  &:focus, &.ant-input-focused {
+    border-color: #ff6b9d;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+  }
+
+  &--error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+
+  &--success {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:disabled, &.ant-input-disabled {
+    background: #f9fafb;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    resize: none;
+  }
+}
+
+// 旋轉動畫
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// 深色主題支持
+[data-theme='dark'] {
+  .custom-input-wrapper {
+    .custom-input__label {
+      color: #d1d5db;
+    }
+
+    .custom-input__helper {
+      color: #9ca3af;
+    }
+  }
+
+  .custom-input {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+
+    &--default {
+      background: #1f2937;
+
+      &:hover {
+        border-color: #4b5563;
+      }
+
+      &:focus, &.ant-input-focused {
+        background: #111827;
+      }
+    }
+
+    &--filled {
+      background: #111827;
+
+      &:hover {
+        background: #1f2937;
+      }
+    }
+
+    &--borderless {
+      &:hover {
+        background: rgba(31, 41, 55, 0.5);
+      }
+
+      &:focus, &.ant-input-focused {
+        background: #1f2937;
+      }
+    }
+
+    &::placeholder {
+      color: #6b7280;
+    }
+
+    &:disabled, &.ant-input-disabled {
+      background: #111827;
+      border-color: #374151;
+      color: #6b7280;
+    }
+
+    &--has-left-icon .ant-input-prefix,
+    &--has-right-icon .ant-input-suffix {
+      color: #6b7280;
+    }
+  }
+
+  .custom-textarea {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+
+    &:hover {
+      border-color: #4b5563;
+    }
+
+    &:focus, &.ant-input-focused {
+      background: #111827;
+    }
+
+    &::placeholder {
+      color: #6b7280;
+    }
+
+    &:disabled, &.ant-input-disabled {
+      background: #111827;
+      border-color: #374151;
+      color: #6b7280;
+    }
+  }
+
+  .custom-password-input {
+    .ant-input-password-icon {
+      color: #6b7280;
+      
+      &:hover {
+        color: #9ca3af;
+      }
+    }
+  }
+}
+
+// 響應式設計
+@media (max-width: 768px) {
+  .custom-input {
+    &--large {
+      height: 44px;
+      padding: 10px 14px;
+      font-size: 15px;
+    }
+
+    &--medium {
+      height: 36px;
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
+    &--small {
+      height: 32px;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+  }
+
+  .custom-textarea {
+    &--large {
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    &--medium {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    &--small {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(c:\\Users\\notel\\OneDrive\\Shop\\MickeyShop-Beauty/**)",
+      "Bash(mkdir:*)",
+      "Bash(dir:*)",
+      "Bash(tree:*)",
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(npm run typecheck:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

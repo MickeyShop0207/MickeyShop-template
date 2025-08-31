@@ -1,0 +1,208 @@
+.product-filters {
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+
+    .ant-typography {
+      display: flex;
+      align-items: center;
+      color: var(--color-text);
+    }
+
+    .clear-button {
+      color: var(--color-text-secondary);
+      
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .filters-content {
+    .filter-card {
+      margin-bottom: 16px;
+      border-radius: 6px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .ant-card-body {
+        padding: 16px;
+      }
+
+      .ant-typography {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 12px;
+      }
+    }
+
+    .category-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .category-button {
+        text-align: left;
+        height: auto;
+        padding: 8px 12px;
+        border-radius: 4px;
+        
+        .count {
+          color: var(--color-text-tertiary);
+          font-size: 12px;
+          margin-left: 4px;
+        }
+
+        &.ant-btn-primary {
+          .count {
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+      }
+    }
+
+    .brand-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .brand-checkbox {
+        .count {
+          color: var(--color-text-tertiary);
+          font-size: 12px;
+          margin-left: 4px;
+        }
+      }
+
+      .show-more {
+        padding: 0;
+        font-size: 12px;
+        color: var(--color-primary);
+      }
+    }
+
+    .price-filter {
+      .ant-slider {
+        margin: 20px 0;
+      }
+
+      .price-inputs {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .ant-input-number {
+          .ant-input-number-input {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .rating-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .rating-button {
+        text-align: left;
+        height: auto;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+
+        .ant-rate {
+          font-size: 12px;
+          margin-right: 8px;
+          
+          .ant-rate-star {
+            margin-right: 2px;
+          }
+        }
+      }
+    }
+
+    .special-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .ant-checkbox-wrapper {
+        margin: 0;
+        padding: 4px 0;
+      }
+    }
+
+    .tag-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .tag-button {
+        height: auto;
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  // 響應式設計
+  @media (max-width: 768px) {
+    .filters-content {
+      .filter-card {
+        margin-bottom: 12px;
+
+        .ant-card-body {
+          padding: 12px;
+        }
+
+        .ant-typography {
+          font-size: 13px;
+          margin-bottom: 8px;
+        }
+      }
+
+      .category-filters {
+        .category-button {
+          padding: 6px 10px;
+          font-size: 13px;
+        }
+      }
+
+      .brand-filters {
+        gap: 6px;
+
+        .brand-checkbox {
+          font-size: 13px;
+        }
+      }
+
+      .rating-filters {
+        .rating-button {
+          padding: 6px 10px;
+          font-size: 13px;
+
+          .ant-rate {
+            font-size: 10px;
+          }
+        }
+      }
+
+      .tag-filters {
+        .tag-button {
+          padding: 4px 8px;
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}

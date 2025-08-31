@@ -1,0 +1,193 @@
+// =================================
+// MickeyShop Beauty 全局變數定義
+// =================================
+
+// ============ CSS 自定義屬性 ============
+:root {
+  // 主要品牌色彩
+  --color-primary-50: theme('colors.primary.50');
+  --color-primary-100: theme('colors.primary.100');
+  --color-primary-200: theme('colors.primary.200');
+  --color-primary-300: theme('colors.primary.300');
+  --color-primary-400: theme('colors.primary.400');
+  --color-primary-500: theme('colors.primary.500');
+  --color-primary-600: theme('colors.primary.600');
+  --color-primary-700: theme('colors.primary.700');
+  --color-primary-800: theme('colors.primary.800');
+  --color-primary-900: theme('colors.primary.900');
+  --color-primary-950: theme('colors.primary.950');
+  
+  // 次要色彩
+  --color-secondary-50: theme('colors.secondary.50');
+  --color-secondary-100: theme('colors.secondary.100');
+  --color-secondary-200: theme('colors.secondary.200');
+  --color-secondary-300: theme('colors.secondary.300');
+  --color-secondary-400: theme('colors.secondary.400');
+  --color-secondary-500: theme('colors.secondary.500');
+  --color-secondary-600: theme('colors.secondary.600');
+  --color-secondary-700: theme('colors.secondary.700');
+  --color-secondary-800: theme('colors.secondary.800');
+  --color-secondary-900: theme('colors.secondary.900');
+  --color-secondary-950: theme('colors.secondary.950');
+  
+  // 功能色彩
+  --color-success: theme('colors.success.500');
+  --color-warning: theme('colors.warning.500');
+  --color-error: theme('colors.error.500');
+  --color-info: theme('colors.blue.500');
+  
+  // 中性色彩
+  --color-neutral-50: theme('colors.neutral.50');
+  --color-neutral-100: theme('colors.neutral.100');
+  --color-neutral-200: theme('colors.neutral.200');
+  --color-neutral-300: theme('colors.neutral.300');
+  --color-neutral-400: theme('colors.neutral.400');
+  --color-neutral-500: theme('colors.neutral.500');
+  --color-neutral-600: theme('colors.neutral.600');
+  --color-neutral-700: theme('colors.neutral.700');
+  --color-neutral-800: theme('colors.neutral.800');
+  --color-neutral-900: theme('colors.neutral.900');
+  --color-neutral-950: theme('colors.neutral.950');
+  
+  // 背景色彩
+  --color-bg-primary: theme('colors.white');
+  --color-bg-secondary: theme('colors.neutral.50');
+  --color-bg-tertiary: theme('colors.neutral.100');
+  
+  // 文字色彩
+  --color-text-primary: theme('colors.neutral.900');
+  --color-text-secondary: theme('colors.neutral.600');
+  --color-text-tertiary: theme('colors.neutral.400');
+  
+  // 邊框色彩
+  --color-border: theme('colors.neutral.200');
+  --color-border-focus: theme('colors.primary.500');
+  
+  // 字型系統
+  --font-primary: theme('fontFamily.sans');
+  --font-secondary: theme('fontFamily.zh-sans');
+  --font-mono: theme('fontFamily.mono');
+  
+  // 字型大小
+  --font-size-xs: theme('fontSize.xs.0');
+  --font-size-sm: theme('fontSize.sm.0');
+  --font-size-base: theme('fontSize.base.0');
+  --font-size-lg: theme('fontSize.lg.0');
+  --font-size-xl: theme('fontSize.xl.0');
+  --font-size-2xl: theme('fontSize.2xl.0');
+  --font-size-3xl: theme('fontSize.3xl.0');
+  --font-size-4xl: theme('fontSize.4xl.0');
+  --font-size-5xl: theme('fontSize.5xl.0');
+  --font-size-6xl: theme('fontSize.6xl.0');
+  
+  // 字體重量
+  --font-weight-thin: theme('fontWeight.thin');
+  --font-weight-light: theme('fontWeight.light');
+  --font-weight-normal: theme('fontWeight.normal');
+  --font-weight-medium: theme('fontWeight.medium');
+  --font-weight-semibold: theme('fontWeight.semibold');
+  --font-weight-bold: theme('fontWeight.bold');
+  --font-weight-extrabold: theme('fontWeight.extrabold');
+  
+  // 行高
+  --line-height-tight: theme('lineHeight.tight');
+  --line-height-normal: theme('lineHeight.normal');
+  --line-height-relaxed: theme('lineHeight.relaxed');
+  
+  // 間距系統
+  --space-xs: theme('spacing.1');
+  --space-sm: theme('spacing.2');
+  --space-md: theme('spacing.4');
+  --space-lg: theme('spacing.6');
+  --space-xl: theme('spacing.8');
+  --space-2xl: theme('spacing.12');
+  --space-3xl: theme('spacing.16');
+  --space-4xl: theme('spacing.20');
+  --space-5xl: theme('spacing.24');
+  
+  // 圓角系統
+  --radius-sm: theme('borderRadius.sm');
+  --radius-md: theme('borderRadius.md');
+  --radius-lg: theme('borderRadius.lg');
+  --radius-xl: theme('borderRadius.xl');
+  --radius-2xl: theme('borderRadius.2xl');
+  --radius-3xl: theme('borderRadius.3xl');
+  --radius-full: theme('borderRadius.full');
+  
+  // 陰影系統
+  --shadow-soft: theme('boxShadow.soft');
+  --shadow-medium: theme('boxShadow.medium');
+  --shadow-hard: theme('boxShadow.hard');
+  --shadow-product: theme('boxShadow.product');
+  --shadow-card: theme('boxShadow.card');
+  
+  // Z-index 層級
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  
+  // 動畫時間
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  
+  // 動畫緩動
+  --ease-in: ease-in;
+  --ease-out: ease-out;
+  --ease-in-out: ease-in-out;
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  // 斷點
+  --breakpoint-sm: theme('screens.sm');
+  --breakpoint-md: theme('screens.md');
+  --breakpoint-lg: theme('screens.lg');
+  --breakpoint-xl: theme('screens.xl');
+  --breakpoint-2xl: theme('screens.2xl');
+}
+
+// ============ SCSS 變數 ============
+// 這些變數用於需要計算或操作的場景
+
+// 容器寬度
+$container-sm: 640px;
+$container-md: 768px;
+$container-lg: 1024px;
+$container-xl: 1280px;
+$container-2xl: 1536px;
+
+// 網格系統
+$grid-columns: 12;
+$grid-gutter: 1rem;
+
+// 產品相關尺寸
+$product-image-aspect: 1 / 1;
+$product-card-width: 280px;
+$product-card-height: 400px;
+
+// 頭部高度
+$header-height-mobile: 60px;
+$header-height-desktop: 80px;
+
+// 側邊欄寬度
+$sidebar-width: 280px;
+$sidebar-width-collapsed: 60px;
+
+// 表單元素高度
+$form-element-height: 40px;
+$form-element-height-lg: 48px;
+$form-element-height-sm: 32px;
+
+// 按鈕高度
+$button-height: 40px;
+$button-height-lg: 48px;
+$button-height-sm: 32px;
+
+// 卡片內邊距
+$card-padding: 1.5rem;
+$card-padding-sm: 1rem;
+$card-padding-lg: 2rem;

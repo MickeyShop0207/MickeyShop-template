@@ -1,0 +1,54 @@
+{
+  "name": "mickeyshop-beauty-workers",
+  "version": "1.0.0",
+  "description": "MickeyShop Beauty - Cloudflare Workers API",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:push": "drizzle-kit push:sqlite",
+    "db:migrate": "tsx src/scripts/migrate.ts",
+    "db:seed": "tsx src/scripts/seed.ts"
+  },
+  "dependencies": {
+    "hono": "^3.12.5",
+    "@hono/node-server": "^1.8.2",
+    "drizzle-orm": "^0.29.1",
+    "zod": "^3.22.4",
+    "bcryptjs": "^2.4.3",
+    "@tsndr/cloudflare-worker-jwt": "^2.4.3",
+    "nanoid": "^5.0.4",
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@cloudflare/workers-types": "^4.20231121.0",
+    "drizzle-kit": "^0.20.6",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2",
+    "tsx": "^4.6.2",
+    "vitest": "^1.0.4",
+    "@vitest/coverage-v8": "^1.0.4",
+    "wrangler": "^3.20.0"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "hono",
+    "typescript",
+    "api",
+    "beauty",
+    "ecommerce"
+  ],
+  "author": "MickeyShop Beauty Team",
+  "license": "MIT"
+}

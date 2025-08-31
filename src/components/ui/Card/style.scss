@@ -1,0 +1,336 @@
+// 自定義卡片樣式
+.custom-card {
+  position: relative;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  // 變體
+  &--default {
+    background: #ffffff;
+    border-color: #e5e7eb;
+  }
+
+  &--outlined {
+    background: transparent;
+    border-color: #d1d5db;
+    border-width: 1px;
+  }
+
+  &--elevated {
+    background: #ffffff;
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  &--minimal {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  // 尺寸
+  &--small {
+    .ant-card-body {
+      padding: 12px;
+    }
+  }
+
+  &--medium {
+    .ant-card-body {
+      padding: 16px;
+    }
+  }
+
+  &--large {
+    .ant-card-body {
+      padding: 24px;
+    }
+  }
+
+  // 陰影
+  &--shadow-none {
+    box-shadow: none;
+  }
+
+  &--shadow-small {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  &--shadow-medium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  &--shadow-large {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  // 內邊距
+  &--padding-none {
+    .ant-card-body {
+      padding: 0;
+    }
+  }
+
+  &--padding-small {
+    .ant-card-body {
+      padding: 8px;
+    }
+  }
+
+  &--padding-medium {
+    .ant-card-body {
+      padding: 16px;
+    }
+  }
+
+  &--padding-large {
+    .ant-card-body {
+      padding: 24px;
+    }
+  }
+
+  // 圓角
+  &--rounded {
+    border-radius: 12px;
+    
+    &.custom-card--small {
+      border-radius: 8px;
+    }
+    
+    &.custom-card--large {
+      border-radius: 16px;
+    }
+  }
+
+  // 可懸停
+  &--hoverable {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-color: #ff6b9d;
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  // 加載狀態
+  &--loading {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  // 標題區域
+  .ant-card-head {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px 20px;
+    
+    .ant-card-head-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+  }
+
+  // 內容區域
+  &__content {
+    flex: 1;
+  }
+
+  // 頁腳區域
+  &__footer {
+    border-top: 1px solid #f3f4f6;
+    padding: 12px 20px;
+    background: #f9fafb;
+    margin: 0 -20px -20px -20px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  // 自定義標題
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__header-content {
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.4;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  &__header-action {
+    flex-shrink: 0;
+  }
+
+  // 自定義內容
+  &__body {
+    &--padding-none {
+      padding: 0;
+    }
+
+    &--padding-small {
+      padding: 8px;
+    }
+
+    &--padding-medium {
+      padding: 16px;
+    }
+
+    &--padding-large {
+      padding: 24px;
+    }
+  }
+
+  // 操作區域
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+
+    &--left {
+      justify-content: flex-start;
+    }
+
+    &--center {
+      justify-content: center;
+    }
+
+    &--right {
+      justify-content: flex-end;
+    }
+
+    &--space-between {
+      justify-content: space-between;
+    }
+  }
+}
+
+// 深色主題支持
+[data-theme='dark'] {
+  .custom-card {
+    &--default {
+      background: #1f2937;
+      border-color: #374151;
+    }
+
+    &--outlined {
+      border-color: #4b5563;
+    }
+
+    &--elevated {
+      background: #1f2937;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .ant-card-head {
+      border-color: #374151;
+      background: #111827;
+      
+      .ant-card-head-title {
+        color: #f9fafb;
+      }
+    }
+
+    &__title {
+      color: #f9fafb;
+    }
+
+    &__subtitle {
+      color: #9ca3af;
+    }
+
+    &__footer {
+      background: #111827;
+      border-color: #374151;
+    }
+
+    &__actions {
+      border-color: #374151;
+    }
+
+    &--hoverable:hover {
+      border-color: #ff6b9d;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// 響應式設計
+@media (max-width: 768px) {
+  .custom-card {
+    border-radius: 8px;
+    
+    &--large {
+      .ant-card-body {
+        padding: 16px;
+      }
+    }
+
+    .ant-card-head {
+      padding: 12px 16px;
+    }
+
+    &__footer {
+      padding: 8px 16px;
+      margin: 0 -16px -16px -16px;
+    }
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__subtitle {
+      font-size: 13px;
+    }
+  }
+}
+
+// 動畫
+.custom-card {
+  &--hoverable {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+// 特殊效果卡片
+.custom-card {
+  &--gradient {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(199, 69, 105, 0.1) 100%);
+    border-color: rgba(255, 107, 157, 0.2);
+
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 107, 157, 0.15) 0%, rgba(199, 69, 105, 0.15) 100%);
+    }
+  }
+
+  &--glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}

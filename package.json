@@ -1,0 +1,71 @@
+{
+  "name": "mickeyshop-beauty",
+  "version": "1.0.0",
+  "description": "MickeyShop Beauty - 美妝電商平台",
+  "main": "index.js",
+  "type": "module",
+  "workspaces": [
+    "workers"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "worker:dev": "npm run dev --workspace=workers",
+    "worker:build": "npm run build --workspace=workers",
+    "worker:deploy": "npm run deploy --workspace=workers",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "antd": "^5.12.8",
+    "zustand": "^4.4.7",
+    "@tanstack/react-query": "^5.8.4",
+    "axios": "^1.6.2",
+    "gsap": "^3.12.2",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.6",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "dayjs": "^1.11.10",
+    "react-hook-form": "^7.48.2",
+    "@hookform/resolvers": "^3.3.2",
+    "zod": "^3.22.4",
+    "clsx": "^2.0.0",
+    "nanoid": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.5",
+    "vite-plugin-pwa": "^0.17.4",
+    "tailwindcss": "^3.3.6",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16",
+    "sass": "^1.69.5",
+    "vitest": "^1.0.4",
+    "@vitest/coverage-v8": "^1.0.4"
+  },
+  "keywords": [
+    "beauty",
+    "ecommerce",
+    "react",
+    "typescript",
+    "cloudflare-workers",
+    "vite"
+  ],
+  "author": "MickeyShop Beauty Team",
+  "license": "MIT"
+}
