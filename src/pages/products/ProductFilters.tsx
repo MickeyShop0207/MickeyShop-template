@@ -2,7 +2,7 @@
 import React from 'react'
 import { Card, Checkbox, Slider, InputNumber, Rate, Button, Divider, Space, Typography } from 'antd'
 import { FilterOutlined, ClearOutlined } from '@ant-design/icons'
-import type { Category, Brand, ProductSearchParams } from '../../types'
+import type { Category, Brand, ProductSearchParams } from '../../api/types'
 import { formatPrice } from '../../utils'
 import './ProductFilters.scss'
 
@@ -31,7 +31,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   ])
 
   // 更新價格範圍
-  const handlePriceChange = (value: number | [number, number]) => {
+  const handlePriceChange = (value: number | [number, number] | null) => {
+    if (value === null) return
     const range = Array.isArray(value) ? value : [0, value]
     setPriceRange(range as [number, number])
   }
@@ -80,7 +81,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </Title>
         <Button 
           type="text" 
-          size="small"
+          
           icon={<ClearOutlined />}
           onClick={onClearFilters}
           className="clear-button"
@@ -92,14 +93,14 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
       <div className="filters-content">
         {/* 商品分類 */}
         {categories.length > 0 && (
-          <Card size="small" className="filter-card">
+          <Card  className="filter-card">
             <Title level={5}>商品分類</Title>
             <div className="category-filters">
               {categories.map((category) => (
                 <Button
                   key={category.id}
                   type={currentParams.categoryId === category.id ? 'primary' : 'default'}
-                  size="small"
+                  
                   onClick={() => handleCategoryChange(category.id)}
                   className="category-button"
                 >
@@ -115,25 +116,26 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
         {/* 品牌篩選 */}
         {brands.length > 0 && (
-          <Card size="small" className="filter-card">
+          <Card  className="filter-card">
             <Title level={5}>品牌</Title>
             <div className="brand-filters">
               {brands.slice(0, 8).map((brand) => (
-                <Checkbox
-                  key={brand.id}
-                  checked={currentParams.brandId === brand.id}
-                  onChange={(e) => handleBrandChange(brand.id)}
-                  className="brand-checkbox"
-                >
-                  {brand.name}
-                  {brand.productCount && (
-                    <span className="count">({brand.productCount})</span>
-                  )}
-                </Checkbox>
+                <div key={brand.id} className="brand-item">
+                  <Checkbox
+                    checked={currentParams.brandId === brand.id}
+                    onChange={(e) => handleBrandChange(brand.id)}
+                    className="brand-checkbox"
+                  >
+                    {brand.name}
+                    {brand.productCount && (
+                      <span className="count">({brand.productCount})</span>
+                    )}
+                  </Checkbox>
+                </div>
               ))}
               
               {brands.length > 8 && (
-                <Button type="link" size="small" className="show-more">
+                <Button type="link"  className="show-more">
                   顯示更多品牌
                 </Button>
               )}
@@ -142,7 +144,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         )}
 
         {/* 價格範圍 */}
-        <Card size="small" className="filter-card">
+        <Card  className="filter-card">
           <Title level={5}>價格範圍</Title>
           <div className="price-filter">
             <Slider
@@ -165,13 +167,14 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   max={5000}
                   value={priceRange[0]}
                   onChange={(value) => {
-                    const newRange: [number, number] = [value || 0, priceRange[1]]
+                    const newValue = value || 0
+                    const newRange: [number, number] = [newValue, priceRange[1]]
                     setPriceRange(newRange)
-                    handlePriceChangeComplete()
                   }}
+                  onBlur={handlePriceChangeComplete}
                   formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any}
-                  size="small"
+                  
                   style={{ width: 80 }}
                 />
                 <Text type="secondary">-</Text>
@@ -180,13 +183,14 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   max={5000}
                   value={priceRange[1]}
                   onChange={(value) => {
-                    const newRange: [number, number] = [priceRange[0], value || 5000]
+                    const newValue = value || 5000
+                    const newRange: [number, number] = [priceRange[0], newValue]
                     setPriceRange(newRange)
-                    handlePriceChangeComplete()
                   }}
+                  onBlur={handlePriceChangeComplete}
                   formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as any}
-                  size="small"
+                  
                   style={{ width: 80 }}
                 />
               </Space>
@@ -195,14 +199,14 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </Card>
 
         {/* 評分篩選 */}
-        <Card size="small" className="filter-card">
+        <Card  className="filter-card">
           <Title level={5}>評分</Title>
           <div className="rating-filters">
             {[5, 4, 3, 2, 1].map((rating) => (
               <Button
                 key={rating}
                 type={currentParams.minRating === rating ? 'primary' : 'default'}
-                size="small"
+                
                 onClick={() => handleRatingChange(rating)}
                 className="rating-button"
               >
@@ -214,7 +218,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </Card>
 
         {/* 特殊篩選 */}
-        <Card size="small" className="filter-card">
+        <Card  className="filter-card">
           <Title level={5}>特殊篩選</Title>
           <div className="special-filters">
             <Checkbox
@@ -255,7 +259,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         </Card>
 
         {/* 標籤篩選 */}
-        <Card size="small" className="filter-card">
+        <Card  className="filter-card">
           <Title level={5}>熱門標籤</Title>
           <div className="tag-filters">
             {[
@@ -264,7 +268,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               <Button
                 key={tag}
                 type={currentParams.tags?.includes(tag) ? 'primary' : 'default'}
-                size="small"
+                
                 onClick={() => {
                   const currentTags = currentParams.tags || []
                   const newTags = currentTags.includes(tag)

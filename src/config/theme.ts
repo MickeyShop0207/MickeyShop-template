@@ -1,6 +1,7 @@
 /**
  * 主題配置系統 - 統一主題變數與配置管理
  */
+import { theme as antTheme } from 'antd'
 
 // 主題色彩配置
 export const themeColors = {
@@ -422,6 +423,33 @@ export const themeUtils = {
   // 獲取對比主題
   getOppositeTheme: (theme: 'light' | 'dark'): 'light' | 'dark' => 
     theme === 'light' ? 'dark' : 'light',
+}
+
+// Ant Design 主題配置
+export const theme = {
+  token: {
+    colorPrimary: themeColors.light.primary[500],
+    colorSuccess: themeColors.light.success,
+    colorWarning: themeColors.light.warning,
+    colorError: themeColors.light.danger,
+    colorInfo: themeColors.light.info,
+    fontFamily: typography.fontFamily.sans.join(', '),
+    borderRadius: 8,
+  },
+  components: {
+    Button: {
+      borderRadius: 8,
+      fontWeight: 500,
+    },
+    Card: {
+      borderRadius: 12,
+    },
+    Input: {
+      borderRadius: 8,
+    },
+  },
+  defaultAlgorithm: antTheme.defaultAlgorithm,
+  darkAlgorithm: antTheme.darkAlgorithm,
 }
 
 // 類型導出

@@ -169,6 +169,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                         icon={<EyeOutlined />}
                         className="product-card__quick-view-btn"
                         onClick={handleQuickView}
+                        title="快速預覽"
                       />
                     )}
                     <Button
@@ -246,6 +247,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   icon={<EyeOutlined />}
                   className="product-card__quick-view-btn"
                   onClick={handleQuickView}
+                  title="快速預覽"
                 />
               )}
             </div>

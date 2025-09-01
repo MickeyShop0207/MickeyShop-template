@@ -46,6 +46,13 @@ export interface PaginationParams {
   order?: 'asc' | 'desc'
 }
 
+export interface PaginatedResponse<T = any> {
+  data: T[]
+  pagination: PaginationMeta
+  success: boolean
+  message?: string
+}
+
 // 用戶相關類型
 export interface User {
   id: ID
@@ -135,6 +142,115 @@ export interface RegisterData {
   lastName?: string
   agreedToTerms: boolean
   agreedToMarketing?: boolean
+}
+
+// JWT 權限相關類型
+export interface JWTPayload {
+  sub: string                    // 用戶 ID
+  email: string                  // 用戶 email
+  roles: AdminRole[]             // 角色列表
+  permissions: Permission[]      // 權限列表
+  brand: string                  // 品牌標識
+  session: string                // 會話 ID
+  iat: number                   // 簽發時間
+  exp: number                   // 過期時間
+  iss: string                   // 簽發者
+  aud: string                   // 受眾
+}
+
+// 管理員用戶類型
+export interface AdminUser {
+  id: ID
+  username: string
+  email: string
+  firstName: string
+  lastName: string
+  avatar?: string
+  phone?: string
+  department: AdminDepartment
+  roles: AdminRole[]
+  permissions: Permission[]
+  isActive: boolean
+  lastLoginAt?: Timestamp
+  createdAt: Timestamp
+  updatedAt: Timestamp
+}
+
+// 管理員角色定義
+export type AdminRole = 
+  | 'super_admin'        // 超級管理員：全系統權限
+  | 'admin'              // 管理員：業務管理權限
+  | 'customer_service'   // 客服人員：客戶服務權限
+  | 'warehouse_staff'    // 倉庫人員：庫存物流權限
+  | 'content_editor'     // 內容編輯：內容管理權限
+
+// 管理員部門
+export type AdminDepartment = 
+  | 'management'         // 管理部門
+  | 'customer_service'   // 客服部門
+  | 'warehouse'          // 倉庫部門
+  | 'marketing'          // 行銷部門
+  | 'it'                 // IT 部門
+
+// 權限定義（符合 RBAC 模式）
+export type Permission = 
+  // 商品管理權限
+  | 'product:read'       | 'product:write'      | 'product:delete'
+  | 'category:read'      | 'category:write'     | 'category:delete'
+  | 'brand:read'         | 'brand:write'        | 'brand:delete'
+  | 'inventory:read'     | 'inventory:write'    | 'inventory:adjust'
+  
+  // 訂單管理權限
+  | 'order:read'         | 'order:write'        | 'order:delete'
+  | 'order:process'      | 'order:ship'         | 'order:cancel'
+  | 'order:refund'       | 'order:return'
+  
+  // 會員管理權限
+  | 'member:read'        | 'member:write'       | 'member:delete'
+  | 'member:suspend'     | 'member:activate'
+  
+  // 內容管理權限
+  | 'content:read'       | 'content:write'      | 'content:delete'
+  | 'banner:read'        | 'banner:write'       | 'banner:delete'
+  
+  // 促銷活動權限
+  | 'promotion:read'     | 'promotion:write'    | 'promotion:delete'
+  | 'coupon:read'        | 'coupon:write'       | 'coupon:delete'
+  
+  // 報表分析權限
+  | 'analytics:read'     | 'analytics:export'
+  | 'report:read'        | 'report:export'
+  
+  // 系統管理權限
+  | 'system:read'        | 'system:write'
+  | 'user:read'          | 'user:write'         | 'user:delete'
+  | 'role:read'          | 'role:write'         | 'role:assign'
+  | 'audit:read'         | 'backup:create'      | 'backup:restore'
+
+// 權限檢查選項
+export interface PermissionCheck {
+  permissions: Permission[]
+  requireAll?: boolean     // 是否需要所有權限 (AND) 或任一權限 (OR)
+  roles?: AdminRole[]      // 可選：同時檢查角色
+}
+
+// 認證響應類型
+export interface AuthResponse {
+  success: boolean
+  message?: string
+  user: User | AdminUser
+  tokens: AuthTokens
+  permissions?: Permission[]
+  roles?: AdminRole[]
+}
+
+// 設備信息類型
+export interface DeviceInfo {
+  userAgent?: string
+  platform?: string
+  browser?: string
+  ip?: string
+  location?: string
 }
 
 // 商品相關類型

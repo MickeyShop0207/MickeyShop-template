@@ -1,5 +1,20 @@
 // API 通用類型定義
 
+// 分頁響應類型
+export interface PaginatedResponse<T = any> {
+  data: T[]
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+    hasNext: boolean
+    hasPrev: boolean
+  }
+  success: boolean
+  message?: string
+}
+
 // 用戶相關類型
 export interface User {
   id: string
@@ -18,22 +33,24 @@ export interface User {
   emailVerified: boolean
   phoneVerified: boolean
   marketingOptIn: boolean
+  isActive: boolean
+  role: 'user' | 'admin' | 'moderator'
   createdAt: string
   updatedAt: string
 }
 
-// 管理員用戶類型
+// 管理員用戶類型 (與主類型定義保持一致)
 export interface AdminUser {
   id: string
   username: string
   email: string
-  displayName: string
+  firstName: string
+  lastName: string
   avatar?: string
-  department: string
-  position: string
-  roles: string[]
+  phone?: string
+  department: 'management' | 'customer_service' | 'warehouse' | 'marketing' | 'it'
+  roles: ('super_admin' | 'admin' | 'customer_service' | 'warehouse_staff' | 'content_editor')[]
   permissions: string[]
-  twoFactorEnabled: boolean
   isActive: boolean
   lastLoginAt?: string
   createdAt: string
@@ -45,7 +62,7 @@ export interface TokenInfo {
   accessToken: string
   refreshToken: string
   expiresIn: number
-  tokenType: string
+  tokenType: 'Bearer'
 }
 
 // 會話信息
@@ -182,6 +199,16 @@ export interface ProductReview {
   // 關聯數據
   user?: Pick<User, 'id' | 'firstName' | 'lastName' | 'avatar'>
   product?: Pick<Product, 'id' | 'name' | 'images'>
+}
+
+// 創建商品評價請求
+export interface CreateProductReviewRequest {
+  productId: string
+  rating: number
+  title: string
+  content: string
+  images?: string[]
+  isRecommended?: boolean
 }
 
 // 購物車項目
@@ -377,6 +404,7 @@ export interface DashboardStats {
 export interface DeviceInfo {
   deviceId: string
   deviceName: string
+  platform?: string
   userAgent?: string
   ip?: string
 }

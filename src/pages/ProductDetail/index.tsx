@@ -79,7 +79,7 @@ const ProductVariantSelector: React.FC<ProductVariantSelectorProps> = ({
               <Button
                 key={option.id}
                 type={selectedVariants[variant.id] === option.id ? 'primary' : 'default'}
-                size="small"
+                
                 disabled={option.stock === 0}
                 onClick={() => onVariantChange(variant.id, option.id)}
                 className="variant-option"
@@ -125,16 +125,16 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
   return (
     <div className="product-reviews">
       {reviews.map((review) => (
-        <Card key={review.id} className="review-card" size="small">
+        <Card key={review.id} className="review-card" >
           <div className="review-header">
             <div className="reviewer-info">
-              <Avatar src={review.user.avatar} size="small">
+              <Avatar src={review.user.avatar} >
                 {review.user.name.charAt(0)}
               </Avatar>
               <span className="reviewer-name">{review.user.name}</span>
               <span className="review-date">{review.createdAt}</span>
             </div>
-            <Rate disabled defaultValue={review.rating} size="small" />
+            <Rate disabled defaultValue={review.rating}  />
           </div>
           
           {review.variant && (
@@ -422,7 +422,7 @@ const ProductDetailPage: React.FC = () => {
                   
                   <div className="product-meta">
                     <div className="rating-section">
-                      <Rate disabled defaultValue={product.rating} size="small" />
+                      <Rate disabled defaultValue={product.rating}  />
                       <span className="rating-text">
                         {product.rating} ({product.reviewCount} 評價)
                       </span>

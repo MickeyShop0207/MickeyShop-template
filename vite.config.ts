@@ -7,74 +7,74 @@ import path from 'path'
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/api\./i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 // 1 day
-              },
-              cacheKeyWillBeUsed: async ({ request }) => {
-                return `${request.url}?version=1`
-              }
-            }
-          },
-          {
-            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          }
-        ]
-      },
-      manifest: {
-        name: 'MickeyShop Beauty',
-        short_name: 'MickeyShop',
-        description: '美妝電商平台 - 專業美妝產品一站式購物',
-        theme_color: '#ff6b6b',
-        background_color: '#ffffff',
-        display: 'standalone',
-        orientation: 'portrait',
-        scope: '/',
-        start_url: '/',
-        icons: [
-          {
-            src: 'pwa-64x64.png',
-            sizes: '64x64',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
-          },
-          {
-            src: 'maskable-icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
-          }
-        ]
-      }
-    })
+    // VitePWA({
+    //   registerType: 'autoUpdate',
+    //   workbox: {
+    //     globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+    //     runtimeCaching: [
+    //       {
+    //         urlPattern: /^https:\/\/api\./i,
+    //         handler: 'NetworkFirst',
+    //         options: {
+    //           cacheName: 'api-cache',
+    //           expiration: {
+    //             maxEntries: 10,
+    //             maxAgeSeconds: 60 * 60 * 24 // 1 day
+    //           },
+    //           cacheKeyWillBeUsed: async ({ request }) => {
+    //             return `${request.url}?version=1`
+    //           }
+    //         }
+    //       },
+    //       {
+    //         urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+    //         handler: 'CacheFirst',
+    //         options: {
+    //           cacheName: 'images-cache',
+    //           expiration: {
+    //             maxEntries: 100,
+    //             maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+    //           }
+    //         }
+    //       }
+    //     ]
+    //   },
+    //   manifest: {
+    //     name: 'MickeyShop Beauty',
+    //     short_name: 'MickeyShop',
+    //     description: '美妝電商平台 - 專業美妝產品一站式購物',
+    //     theme_color: '#ff6b6b',
+    //     background_color: '#ffffff',
+    //     display: 'standalone',
+    //     orientation: 'portrait',
+    //     scope: '/',
+    //     start_url: '/',
+    //     icons: [
+    //       {
+    //         src: 'pwa-64x64.png',
+    //         sizes: '64x64',
+    //         type: 'image/png'
+    //       },
+    //       {
+    //         src: 'pwa-192x192.png',
+    //         sizes: '192x192',
+    //         type: 'image/png'
+    //       },
+    //       {
+    //         src: 'pwa-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //         purpose: 'any'
+    //       },
+    //       {
+    //         src: 'maskable-icon-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //         purpose: 'maskable'
+    //       }
+    //     ]
+    //   }
+    // })
   ],
   resolve: {
     alias: {

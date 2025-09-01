@@ -126,7 +126,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
           {item.variants && Object.keys(item.variants).length > 0 && (
             <div className="item-variants">
               {Object.entries(item.variants).map(([key, value]) => (
-                <Tag key={key} size="small">
+                <Tag key={key} >
                   {key}: {value}
                 </Tag>
               ))}
@@ -137,7 +137,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
             <Alert
               message={`庫存不足，僅剩 ${item.product.stock} 件`}
               type="warning"
-              size="small"
+              
               showIcon
               className="stock-warning"
             />
@@ -163,7 +163,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
             max={item.product.stock}
             value={localQuantity}
             onChange={handleQuantityChange}
-            size="small"
+            
             disabled={isOutOfStock}
             style={{ width: 80 }}
           />
@@ -181,12 +181,12 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
 
         {/* 操作按鈕 */}
         <div className="item-actions">
-          <Space direction="vertical" size="small">
+          <Space direction="vertical" >
             <Tooltip title="移至收藏夾">
               <Button
                 type="text"
                 icon={<HeartOutlined />}
-                size="small"
+                
                 onClick={onMoveToWishlist}
               />
             </Tooltip>
@@ -195,7 +195,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({
               <Button
                 type="text"
                 icon={<DeleteOutlined />}
-                size="small"
+                
                 onClick={handleRemove}
                 className="delete-btn"
               />

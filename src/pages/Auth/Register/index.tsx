@@ -213,7 +213,7 @@ const RegisterPage: React.FC = () => {
                     percent={(passwordStrength.score / 5) * 100}
                     showInfo={false}
                     strokeColor={passwordStrength.color}
-                    size="small"
+                    
                   />
                 </div>
               )}

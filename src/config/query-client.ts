@@ -1,5 +1,5 @@
 // React Query 配置
-import { QueryClientConfig } from '@tanstack/react-query'
+import { QueryClient, QueryClientConfig } from '@tanstack/react-query'
 
 export const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
@@ -46,3 +46,6 @@ export const queryClientConfig: QueryClientConfig = {
     },
   },
 }
+
+// 創建 QueryClient 實例
+export const queryClient = new QueryClient(queryClientConfig)

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Pagination, Select, Button, Drawer, Space, Empty } from 'antd'
 import { FilterOutlined, AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
 import { useSearchParams } from 'react-router-dom'
-import { ProductCard } from '../../components'
+import { ProductCard, ProductQuickView } from '../../components'
 import { 
   useProducts, 
   useCategories, 
@@ -18,6 +18,7 @@ import './style.scss'
 const ProductsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [filterVisible, setFilterVisible] = useState(false)
+  const [quickViewProductId, setQuickViewProductId] = useState<string | null>(null)
   
   const { pageSettings, setProductsView, setProductsPerPage } = usePageSettings()
   
@@ -105,6 +106,15 @@ const ProductsPage: React.FC = () => {
   // 清除所有篩選
   const handleClearFilters = () => {
     setSearchParams(new URLSearchParams())
+  }
+
+  // 處理快速預覽
+  const handleQuickView = (productId: string) => {
+    setQuickViewProductId(productId)
+  }
+
+  const handleCloseQuickView = () => {
+    setQuickViewProductId(null)
   }
 
   // 顯示載入狀態或空狀態
@@ -219,6 +229,8 @@ const ProductsPage: React.FC = () => {
                           product={product}
                           layout={pageSettings.productsView}
                           size={pageSettings.productsView === 'list' ? 'large' : 'medium'}
+                          showQuickView={true}
+                          onQuickView={handleQuickView}
                         />
                       </Col>
                     ))}
@@ -278,6 +290,13 @@ const ProductsPage: React.FC = () => {
             }}
           />
         </Drawer>
+
+        {/* 商品快速預覽 */}
+        <ProductQuickView
+          productId={quickViewProductId}
+          open={!!quickViewProductId}
+          onClose={handleCloseQuickView}
+        />
       </div>
     </div>
   )

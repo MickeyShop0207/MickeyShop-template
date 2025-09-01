@@ -5,8 +5,8 @@ import clsx from 'clsx'
 import './style.scss'
 
 export interface CardProps extends Omit<AntdCardProps, 'size'> {
-  variant?: 'default' | 'outlined' | 'elevated' | 'minimal'
-  size?: 'small' | 'medium' | 'large'
+  variant?: 'outlined' | 'borderless'
+  size?: 'small' | 'default' | 'large'
   rounded?: boolean
   shadow?: 'none' | 'small' | 'medium' | 'large'
   padding?: 'none' | 'small' | 'medium' | 'large'

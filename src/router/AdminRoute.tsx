@@ -1,90 +1,136 @@
-// 管理員路由組件
+/**
+ * 管理員權限路由守衛組件
+ * 用於保護需要管理員權限才能訪問的頁面
+ */
+
 import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { useAdminAuth } from '../hooks'
-import { Result, Spin } from 'antd'
+import { Spin, Result } from 'antd'
+import { LockOutlined } from '@ant-design/icons'
+import { useAuthStore } from '@/stores/auth'
+import { checkPermission, isAdmin } from '@/utils/routeGuard'
+import type { AdminRole, Permission, PermissionCheck, AdminUser } from '@/types'
 
-export interface AdminRouteProps {
+interface AdminRouteProps {
   children: React.ReactNode
-  requiredPermissions?: string[]
-  requiredRoles?: string[]
+  fallback?: React.ReactNode
+  permissions?: Permission[]
+  roles?: AdminRole[]
+  requireAll?: boolean
   redirectTo?: string
 }
 
 export const AdminRoute: React.FC<AdminRouteProps> = ({
   children,
-  requiredPermissions = [],
-  requiredRoles = [],
-  redirectTo = '/admin/login'
+  fallback,
+  permissions = [],
+  roles = [],
+  requireAll = false,
+  redirectTo = '/auth/admin-login'
 }) => {
-  const { 
-    isAuthenticated, 
-    adminUser, 
-    isLoading, 
-    hasPermission, 
-    hasRole 
-  } = useAdminAuth()
   const location = useLocation()
+  const { isAuthenticated, isLoading, user } = useAuthStore()
 
-  // 載入中
+  // 載入中顯示 loading
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spin size="large" tip="驗證管理員身份..." />
+    return fallback || (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Spin size="large" tip="驗證管理權限中..." />
       </div>
     )
   }
 
-  // 未登錄或非管理員，重定向到管理員登錄頁面
-  if (!isAuthenticated || !adminUser) {
+  // 未認證用戶重導向到管理員登入頁面
+  if (!isAuthenticated || !user) {
     return (
-      <Navigate 
-        to={redirectTo} 
-        state={{ from: location }} 
-        replace 
+      <Navigate
+        to={redirectTo}
+        state={{ from: location }}
+        replace
       />
     )
   }
 
-  // 檢查所需權限
-  if (requiredPermissions.length > 0) {
-    const hasRequiredPermissions = hasPermission(requiredPermissions)
-    if (!hasRequiredPermissions) {
-      return (
+  // 檢查用戶是否為活躍狀態
+  if (!user.isActive) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <Result
           status="403"
-          title="權限不足"
-          subTitle="您沒有訪問此頁面的權限，請聯繫系統管理員。"
+          title="帳戶已停用"
+          subTitle="您的帳戶已被停用，請聯繫系統管理員。"
           extra={
-            <p>
-              所需權限: {requiredPermissions.join(', ')}
-            </p>
+            <button
+              onClick={() => useAuthStore.getState().logout()}
+              className="px-6 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            >
+              返回登入
+            </button>
           }
         />
+      </div>
+    )
+  }
+
+  // 檢查是否為管理員身份
+  const adminUser = user as AdminUser
+  if (!isAdmin(adminUser)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Result
+          status="403"
+          icon={<LockOutlined />}
+          title="訪問被拒絕"
+          subTitle="您沒有訪問此頁面的權限。"
+          extra={
+            <button
+              onClick={() => window.history.back()}
+              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              返回上一頁
+            </button>
+          }
+        />
+      </div>
+    )
+  }
+
+  // 檢查具體權限
+  if (permissions.length > 0 || roles.length > 0) {
+    const permissionCheck: PermissionCheck = {
+      permissions,
+      roles,
+      requireAll
+    }
+
+    if (!checkPermission(adminUser, permissionCheck)) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <Result
+            status="403"
+            icon={<LockOutlined />}
+            title="權限不足"
+            subTitle={`您缺少以下權限：${permissions.join(', ')}`}
+            extra={
+              <div className="space-y-2">
+                <div className="text-sm text-gray-500">
+                  您的角色：{adminUser.roles.join(', ')}
+                </div>
+                <button
+                  onClick={() => window.history.back()}
+                  className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                >
+                  返回上一頁
+                </button>
+              </div>
+            }
+          />
+        </div>
       )
     }
   }
 
-  // 檢查所需角色
-  if (requiredRoles.length > 0) {
-    const hasRequiredRole = hasRole(requiredRoles)
-    if (!hasRequiredRole) {
-      return (
-        <Result
-          status="403"
-          title="角色權限不足"
-          subTitle="您的角色沒有訪問此頁面的權限。"
-          extra={
-            <p>
-              所需角色: {requiredRoles.join(', ')}
-            </p>
-          }
-        />
-      )
-    }
-  }
-
-  // 已登錄且為管理員，渲染子組件
+  // 權限檢查通過，顯示受保護的內容
   return <>{children}</>
 }
 

@@ -5,9 +5,9 @@
 
 import { Hono } from 'hono'
 import type { Env } from '../index'
-import { memberAuthRoutes } from './auth/memberAuth'
-import { orderRoutes } from '@/modules/orders'
-import { uploadRoutes } from '@/modules/upload'
+// import { memberAuthRoutes } from './auth/memberAuth'
+// import { orderRoutes } from '@/modules/orders'
+// import { uploadRoutes } from '@/modules/upload'
 
 export const publicRoutes = new Hono<{ Bindings: Env }>()
 
@@ -56,10 +56,10 @@ publicRoutes.get('/categories', async (c) => {
 })
 
 // ============ 認證相關 API ============
-publicRoutes.route('/auth', memberAuthRoutes)
+// publicRoutes.route('/auth', memberAuthRoutes)
 
 // ============ 訂單和購物車 API ============
-publicRoutes.route('/', orderRoutes)
+// publicRoutes.route('/', orderRoutes)
 
 // ============ 檔案上傳 API ============
-publicRoutes.route('/', uploadRoutes)
+// publicRoutes.route('/', uploadRoutes)

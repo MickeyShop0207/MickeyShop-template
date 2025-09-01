@@ -1,0 +1,138 @@
+@import "@/styles/globals/variables.scss";
+
+// 登入表單樣式
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
+
+  .form-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+  }
+
+  .form-item {
+    margin-bottom: var(--spacing-lg);
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-text-primary);
+      font-weight: 500;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+
+    .login-button {
+      width: 100%;
+      height: 40px;
+    }
+
+    .forgot-password {
+      text-align: center;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .divider {
+    margin: var(--spacing-lg) 0;
+    text-align: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    span {
+      background: var(--color-white);
+      padding: 0 var(--spacing-md);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .social-login {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+
+    .social-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-md);
+      background: var(--color-white);
+      color: var(--color-text-primary);
+      text-decoration: none;
+      transition: all var(--transition-base);
+
+      &:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .signup-link {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+
+    .signup-text {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  // 響應式設計
+  @media (max-width: 480px) {
+    margin: var(--spacing-md);
+    padding: var(--spacing-lg);
+
+    .form-title {
+      font-size: var(--font-size-lg);
+    }
+  }
+}

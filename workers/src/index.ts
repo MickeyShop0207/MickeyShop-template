@@ -89,10 +89,7 @@ app.use('*', secureHeaders())
 
 // CORS 配置
 app.use('*', cors({
-  origin: (origin) => {
-    const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173').split(',')
-    return allowedOrigins.includes(origin) || origin === null
-  },
+  origin: '*', // 暫時允許所有來源，生產環境應該限制
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,

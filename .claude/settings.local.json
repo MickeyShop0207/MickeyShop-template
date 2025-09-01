@@ -6,7 +6,20 @@
       "Bash(dir:*)",
       "Bash(tree:*)",
       "mcp__sequential-thinking__sequentialthinking",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(move setup.ps1 scripts )",
+      "Bash(move setup-simple.ps1 scripts )",
+      "Bash(move deploy.ps1 scripts )",
+      "Bash(move setup.cmd scripts )",
+      "Bash(move TROUBLESHOOTING.md scripts)",
+      "Bash(powershell:*)",
+      "Bash(npm install)",
+      "Bash(npx wrangler:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx vite build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

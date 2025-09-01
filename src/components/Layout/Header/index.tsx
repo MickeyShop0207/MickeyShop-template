@@ -1,44 +1,56 @@
-// 頁面頭部組件
+/**
+ * 頁面頭部組件
+ */
+
 import React, { useState } from 'react'
-import { Layout, Menu, Badge, Avatar, Dropdown, Input, Button } from 'antd'
 import { 
-  ShoppingCartOutlined, 
-  UserOutlined, 
-  HeartOutlined, 
+  Layout, 
+  Menu, 
+  Button, 
+  Badge, 
+  Dropdown, 
+  Avatar, 
+  Space,
+  Input,
+  Drawer,
+  Typography,
+  Divider
+} from 'antd'
+import {
   MenuOutlined,
   SearchOutlined,
-  BellOutlined 
+  ShoppingCartOutlined,
+  HeartOutlined,
+  UserOutlined,
+  BellOutlined,
+  SettingOutlined,
+  LogoutOutlined
 } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth, useCart, useUnreadNotificationCount } from '../../../hooks'
-import { useDebounceSearch } from '../../../hooks'
+import { useCart, useWishlist, useAuth } from '../../../hooks'
+import { ROUTES } from '../../../router'
 import './style.scss'
 
 const { Header: AntHeader } = Layout
 const { Search } = Input
+const { Text } = Typography
 
-export interface HeaderProps {
-  className?: string
+interface HeaderProps {
+  onMenuClick?: () => void
 }
 
-export const Header: React.FC<HeaderProps> = ({ className }) => {
+export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const navigate = useNavigate()
-  const { user, logout, isAuthenticated } = useAuth()
-  const { cart } = useCart()
-  const { data: notificationData } = useUnreadNotificationCount()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  
-  const { 
-    searchTerm, 
-    setSearchTerm, 
-    debouncedSearchTerm, 
-    clearSearch 
-  } = useDebounceSearch()
+  const { user, isAuthenticated, logout } = useAuth()
+  const { itemCount: cartItemCount } = useCart()
+  const { itemCount: wishlistItemCount } = useWishlist()
+  const [searchDrawerVisible, setSearchDrawerVisible] = useState(false)
 
-  // 搜索處理
+  // 處理搜尋
   const handleSearch = (value: string) => {
     if (value.trim()) {
-      navigate(`/products?q=${encodeURIComponent(value.trim())}`)
+      navigate(`${ROUTES.SEARCH}?q=${encodeURIComponent(value.trim())}`)
+      setSearchDrawerVisible(false)
     }
   }
 
@@ -46,206 +58,179 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
   const userMenuItems = [
     {
       key: 'profile',
-      label: <Link to="/profile">個人中心</Link>
+      label: (
+        <Link to={ROUTES.PROFILE}>
+          <Space>
+            <UserOutlined />
+            個人資料
+          </Space>
+        </Link>
+      ),
     },
     {
       key: 'orders',
-      label: <Link to="/orders">我的訂單</Link>
+      label: (
+        <Link to={ROUTES.ORDERS}>
+          <Space>
+            <SettingOutlined />
+            我的訂單
+          </Space>
+        </Link>
+      ),
     },
     {
-      key: 'wishlist',
-      label: <Link to="/wishlist">願望清單</Link>
-    },
-    {
-      key: 'addresses',
-      label: <Link to="/profile/addresses">收貨地址</Link>
-    },
-    {
-      type: 'divider'
+      type: 'divider',
     },
     {
       key: 'logout',
-      label: '登出',
-      onClick: logout
-    }
-  ]
-
-  // 主導航菜單
-  const mainMenuItems = [
-    {
-      key: 'home',
-      label: <Link to="/">首頁</Link>
+      label: (
+        <Space>
+          <LogoutOutlined />
+          登出
+        </Space>
+      ),
+      onClick: logout,
     },
-    {
-      key: 'products',
-      label: <Link to="/products">商品</Link>
-    },
-    {
-      key: 'categories',
-      label: '分類',
-      children: [
-        { key: 'skincare', label: <Link to="/categories/skincare">護膚</Link> },
-        { key: 'makeup', label: <Link to="/categories/makeup">彩妝</Link> },
-        { key: 'fragrance', label: <Link to="/categories/fragrance">香水</Link> },
-        { key: 'haircare', label: <Link to="/categories/haircare">護髮</Link> }
-      ]
-    },
-    {
-      key: 'brands',
-      label: <Link to="/brands">品牌</Link>
-    },
-    {
-      key: 'about',
-      label: <Link to="/about">關於我們</Link>
-    }
   ]
 
   return (
-    <AntHeader className={`app-header ${className || ''}`}>
-      <div className="app-header__container">
-        {/* Logo */}
-        <div className="app-header__logo">
-          <Link to="/" className="app-header__logo-link">
+    <AntHeader className="main-header">
+      <div className="header-content">
+        {/* 左側：Logo 和選單按鈕 */}
+        <div className="header-left">
+          {onMenuClick && (
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              onClick={onMenuClick}
+              className="menu-button"
+            />
+          )}
+          <Link to={ROUTES.HOME} className="logo">
             <img 
               src="/logo.png" 
               alt="MickeyShop Beauty" 
-              className="app-header__logo-img"
+              className="logo-image"
             />
-            <span className="app-header__logo-text">MickeyShop Beauty</span>
+            <span className="logo-text">MickeyShop Beauty</span>
           </Link>
         </div>
 
-        {/* 搜索框 */}
-        <div className="app-header__search">
+        {/* 中間：搜尋框（桌面端） */}
+        <div className="header-center desktop-only">
           <Search
-            placeholder="搜索美妝商品..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onSearch={handleSearch}
+            placeholder="搜尋商品..."
             allowClear
             enterButton={<SearchOutlined />}
             size="large"
-            className="app-header__search-input"
+            onSearch={handleSearch}
+            className="header-search"
           />
         </div>
 
-        {/* 主導航 - 桌面版 */}
-        <div className="app-header__nav app-header__nav--desktop">
-          <Menu
-            mode="horizontal"
-            items={mainMenuItems}
-            className="app-header__menu"
-          />
-        </div>
+        {/* 右側：功能按鈕 */}
+        <div className="header-right">
+          <Space size="middle">
+            {/* 移動端搜尋按鈕 */}
+            <Button
+              type="text"
+              icon={<SearchOutlined />}
+              onClick={() => setSearchDrawerVisible(true)}
+              className="mobile-only search-button"
+            />
 
-        {/* 右側操作區 */}
-        <div className="app-header__actions">
-          {isAuthenticated ? (
-            <>
-              {/* 通知 */}
-              <Badge count={notificationData?.count || 0} size="small">
+            {/* 購物車 */}
+            <Badge count={cartItemCount} >
+              <Button
+                type="text"
+                icon={<ShoppingCartOutlined />}
+                onClick={() => navigate(ROUTES.CART)}
+                className="action-button"
+              />
+            </Badge>
+
+            {/* 願望清單 */}
+            {isAuthenticated && (
+              <Badge count={wishlistItemCount} >
+                <Button
+                  type="text"
+                  icon={<HeartOutlined />}
+                  onClick={() => navigate(ROUTES.WISHLIST)}
+                  className="action-button"
+                />
+              </Badge>
+            )}
+
+            {/* 通知 */}
+            {isAuthenticated && (
+              <Badge count={0} >
                 <Button
                   type="text"
                   icon={<BellOutlined />}
-                  onClick={() => navigate('/notifications')}
-                  className="app-header__action-btn"
+                  onClick={() => navigate(ROUTES.NOTIFICATIONS)}
+                  className="action-button"
                 />
               </Badge>
+            )}
 
-              {/* 願望清單 */}
-              <Button
-                type="text"
-                icon={<HeartOutlined />}
-                onClick={() => navigate('/wishlist')}
-                className="app-header__action-btn"
-              />
-
-              {/* 購物車 */}
-              <Badge count={cart.itemCount} size="small">
-                <Button
-                  type="text"
-                  icon={<ShoppingCartOutlined />}
-                  onClick={() => navigate('/cart')}
-                  className="app-header__action-btn"
-                />
-              </Badge>
-
-              {/* 用戶菜單 */}
+            {/* 用戶菜單或登入按鈕 */}
+            {isAuthenticated && user ? (
               <Dropdown
                 menu={{ items: userMenuItems }}
                 placement="bottomRight"
                 trigger={['click']}
               >
-                <div className="app-header__user">
-                  <Avatar
-                    src={user?.avatar}
-                    icon={<UserOutlined />}
-                    className="app-header__avatar"
-                  />
-                  <span className="app-header__username">
-                    {user?.firstName || 'User'}
-                  </span>
-                </div>
+                <Button type="text" className="user-button">
+                  <Space>
+                    <Avatar 
+                       
+                      src={user.avatar} 
+                      icon={<UserOutlined />}
+                    />
+                    <span className="desktop-only">
+                      {user.firstName || user.email}
+                    </span>
+                  </Space>
+                </Button>
               </Dropdown>
-            </>
-          ) : (
-            <div className="app-header__auth-actions">
-              <Button type="text" onClick={() => navigate('/login')}>
-                登入
-              </Button>
-              <Button type="primary" onClick={() => navigate('/register')}>
-                註冊
-              </Button>
-            </div>
-          )}
-
-          {/* 移動端菜單按鈕 */}
-          <Button
-            type="text"
-            icon={<MenuOutlined />}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="app-header__mobile-menu-btn"
-          />
+            ) : (
+              <Space>
+                <Button 
+                  onClick={() => navigate(ROUTES.LOGIN)}
+                  className="login-button"
+                >
+                  登入
+                </Button>
+                <Button 
+                  type="primary"
+                  onClick={() => navigate(ROUTES.REGISTER)}
+                  className="register-button"
+                >
+                  註冊
+                </Button>
+              </Space>
+            )}
+          </Space>
         </div>
       </div>
 
-      {/* 移動端導航菜單 */}
-      {mobileMenuOpen && (
-        <div className="app-header__mobile-nav">
-          <Menu
-            mode="inline"
-            items={mainMenuItems}
-            className="app-header__mobile-menu"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          
-          {!isAuthenticated && (
-            <div className="app-header__mobile-auth">
-              <Button 
-                type="default" 
-                onClick={() => {
-                  navigate('/login')
-                  setMobileMenuOpen(false)
-                }}
-                block
-              >
-                登入
-              </Button>
-              <Button 
-                type="primary" 
-                onClick={() => {
-                  navigate('/register')
-                  setMobileMenuOpen(false)
-                }}
-                block
-                style={{ marginTop: 8 }}
-              >
-                註冊
-              </Button>
-            </div>
-          )}
-        </div>
-      )}
+      {/* 移動端搜尋抽屜 */}
+      <Drawer
+        title="搜尋商品"
+        placement="top"
+        open={searchDrawerVisible}
+        onClose={() => setSearchDrawerVisible(false)}
+        height={200}
+      >
+        <Search
+          placeholder="搜尋商品..."
+          allowClear
+          enterButton="搜尋"
+          size="large"
+          onSearch={handleSearch}
+          autoFocus
+        />
+      </Drawer>
     </AntHeader>
   )
 }

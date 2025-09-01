@@ -5,9 +5,9 @@ import { SearchOutlined, EyeOutlined, EyeInvisibleOutlined } from '@ant-design/i
 import clsx from 'clsx'
 import './style.scss'
 
-export interface InputProps extends Omit<AntdInputProps, 'size'> {
-  size?: 'small' | 'medium' | 'large'
-  variant?: 'default' | 'filled' | 'bordered' | 'borderless'
+export interface InputProps extends Omit<AntdInputProps, 'size' | 'variant'> {
+  size?: 'small' | 'middle' | 'large'
+  variant?: 'outlined' | 'filled' | 'borderless'
   label?: string
   error?: string
   success?: string

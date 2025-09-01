@@ -5,9 +5,9 @@ import { LoadingOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
 import './style.scss'
 
-export interface ButtonProps extends Omit<AntdButtonProps, 'loading'> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link'
-  size?: 'small' | 'medium' | 'large'
+export interface ButtonProps extends Omit<AntdButtonProps, 'loading' | 'size' | 'variant'> {
+  variant?: 'primary' | 'default' | 'dashed' | 'link' | 'text'
+  size?: 'small' | 'middle' | 'large'
   fullWidth?: boolean
   loading?: boolean
   leftIcon?: React.ReactNode
@@ -17,7 +17,7 @@ export interface ButtonProps extends Omit<AntdButtonProps, 'loading'> {
 
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
-  size = 'medium',
+  size = 'middle',
   fullWidth = false,
   loading = false,
   leftIcon,

@@ -2,7 +2,7 @@
 import React, { Suspense, lazy } from 'react'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import { Spin } from 'antd'
-import { MainLayout } from '../components/layout'
+import { MainLayout } from '../components/Layout'
 import { ProtectedRoute } from './ProtectedRoute'
 import { AdminRoute } from './AdminRoute'
 import ErrorBoundary from './ErrorBoundary'
@@ -21,6 +21,16 @@ const RegisterPage = lazy(() => import('../pages/Auth/Register'))
 const NotFoundPage = lazy(() => import('../pages/NotFound'))
 const AboutPage = lazy(() => import('../pages/About'))
 const ContactPage = lazy(() => import('../pages/Contact'))
+
+// Profile 子頁面
+const AddressesPage = lazy(() => import('../pages/Profile/Addresses'))
+const WishlistPage = lazy(() => import('../pages/Profile/Wishlist'))
+const ReviewsPage = lazy(() => import('../pages/Profile/Reviews'))
+const SettingsPage = lazy(() => import('../pages/Profile/Settings'))
+
+// 特殊功能頁面
+const NotificationsPage = lazy(() => import('../pages/Notifications'))
+const OrderCompletePage = lazy(() => import('../pages/OrderComplete'))
 
 // 管理後台頁面
 const AdminLayout = lazy(() => import('../pages/Admin/Layout'))
@@ -166,19 +176,19 @@ export const router = createBrowserRouter([
           },
           {
             path: 'addresses',
-            lazy: () => import('../pages/Profile/Addresses')
+            element: <AddressesPage />
           },
           {
             path: 'wishlist',
-            lazy: () => import('../pages/Profile/Wishlist')
+            element: <WishlistPage />
           },
           {
             path: 'reviews',
-            lazy: () => import('../pages/Profile/Reviews')
+            element: <ReviewsPage />
           },
           {
             path: 'settings',
-            lazy: () => import('../pages/Profile/Settings')
+            element: <SettingsPage />
           }
         ]
       },
@@ -186,7 +196,7 @@ export const router = createBrowserRouter([
         path: 'wishlist',
         element: (
           <ProtectedRoute>
-            {React.createElement(lazy(() => import('../pages/Profile/Wishlist')))}
+            <WishlistPage />
           </ProtectedRoute>
         )
       },
@@ -194,7 +204,7 @@ export const router = createBrowserRouter([
         path: 'notifications',
         element: (
           <ProtectedRoute>
-            {React.createElement(lazy(() => import('../pages/Notifications')))}
+            <NotificationsPage />
           </ProtectedRoute>
         )
       }
@@ -218,18 +228,18 @@ export const router = createBrowserRouter([
       </Suspense>
     )
   },
-  {
-    path: '/forgot-password',
-    lazy: () => import('../pages/Auth/ForgotPassword')
-  },
-  {
-    path: '/reset-password',
-    lazy: () => import('../pages/Auth/ResetPassword')
-  },
-  {
-    path: '/verify-email',
-    lazy: () => import('../pages/Auth/VerifyEmail')
-  },
+  // {
+  //   path: '/forgot-password',
+  //   lazy: () => import('../pages/Auth/ForgotPassword')
+  // },
+  // {
+  //   path: '/reset-password',
+  //   lazy: () => import('../pages/Auth/ResetPassword')
+  // },
+  // {
+  //   path: '/verify-email',
+  //   lazy: () => import('../pages/Auth/VerifyEmail')
+  // },
   
   // 管理後台
   {
@@ -247,24 +257,24 @@ export const router = createBrowserRouter([
             index: true,
             element: <AdminProducts />
           },
-          {
-            path: 'create',
-            lazy: () => import('../pages/Admin/Products/Create')
-          },
-          {
-            path: ':id/edit',
-            lazy: () => import('../pages/Admin/Products/Edit')
-          }
+          // {
+          //   path: 'create',
+          //   lazy: () => import('../pages/Admin/Products/Create')
+          // },
+          // {
+          //   path: ':id/edit',
+          //   lazy: () => import('../pages/Admin/Products/Edit')
+          // }
         ]
       },
-      {
-        path: 'categories',
-        lazy: () => import('../pages/Admin/Categories')
-      },
-      {
-        path: 'brands',
-        lazy: () => import('../pages/Admin/Brands')
-      },
+      // {
+      //   path: 'categories',
+      //   lazy: () => import('../pages/Admin/Categories')
+      // },
+      // {
+      //   path: 'brands',
+      //   lazy: () => import('../pages/Admin/Brands')
+      // },
       {
         path: 'orders',
         children: [
@@ -272,10 +282,10 @@ export const router = createBrowserRouter([
             index: true,
             element: <AdminOrders />
           },
-          {
-            path: ':id',
-            lazy: () => import('../pages/Admin/Orders/Detail')
-          }
+          // {
+          //   path: ':id',
+          //   lazy: () => import('../pages/Admin/Orders/Detail')
+          // }
         ]
       },
       {
@@ -285,41 +295,47 @@ export const router = createBrowserRouter([
             index: true,
             element: <AdminUsers />
           },
-          {
-            path: ':id',
-            lazy: () => import('../pages/Admin/Users/Detail')
-          }
+          // {
+          //   path: ':id',
+          //   lazy: () => import('../pages/Admin/Users/Detail')
+          // }
         ]
       },
-      {
-        path: 'analytics',
-        lazy: () => import('../pages/Admin/Analytics')
-      },
-      {
-        path: 'coupons',
-        lazy: () => import('../pages/Admin/Coupons')
-      },
-      {
-        path: 'reviews',
-        lazy: () => import('../pages/Admin/Reviews')
-      },
-      {
-        path: 'settings',
-        lazy: () => import('../pages/Admin/Settings')
-      }
+      // {
+      //   path: 'analytics',
+      //   lazy: () => import('../pages/Admin/Analytics')
+      // },
+      // {
+      //   path: 'coupons',
+      //   lazy: () => import('../pages/Admin/Coupons')
+      // },
+      // {
+      //   path: 'reviews',
+      //   lazy: () => import('../pages/Admin/Reviews')
+      // },
+      // {
+      //   path: 'settings',
+      //   lazy: () => import('../pages/Admin/Settings')
+      // }
     ]
   },
   
   // 管理員登錄
-  {
-    path: '/admin/login',
-    lazy: () => import('../pages/Admin/Login')
-  },
+  // {
+  //   path: '/admin/login',
+  //   lazy: () => import('../pages/Admin/Login')
+  // },
   
   // 特殊頁面
   {
     path: '/order-complete/:orderId',
-    lazy: () => import('../pages/OrderComplete')
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProtectedRoute>
+          <OrderCompletePage />
+        </ProtectedRoute>
+      </Suspense>
+    )
   },
   
   // 404 頁面
@@ -351,6 +367,10 @@ export const ROUTES = {
   ORDERS: '/orders',
   ORDER_DETAIL: (id: string) => `/orders/${id}`,
   PROFILE: '/profile',
+  PROFILE_ADDRESSES: '/profile/addresses',
+  PROFILE_WISHLIST: '/profile/wishlist',
+  PROFILE_REVIEWS: '/profile/reviews',
+  PROFILE_SETTINGS: '/profile/settings',
   WISHLIST: '/wishlist',
   NOTIFICATIONS: '/notifications',
   LOGIN: '/login',

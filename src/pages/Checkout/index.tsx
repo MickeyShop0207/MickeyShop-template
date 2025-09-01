@@ -392,7 +392,7 @@ const CheckoutPage: React.FC = () => {
               {item.variants && Object.keys(item.variants).length > 0 && (
                 <div className="item-variants">
                   {Object.entries(item.variants).map(([key, value]) => (
-                    <Tag key={key} size="small">{key}: {value}</Tag>
+                    <Tag key={key} >{key}: {value}</Tag>
                   ))}
                 </div>
               )}
@@ -437,7 +437,7 @@ const CheckoutPage: React.FC = () => {
                       <span className="recipient-name">{address.recipientName}</span>
                       <span className="recipient-phone">{address.recipientPhone}</span>
                       {address.isDefault && (
-                        <Tag color="blue" size="small">默認</Tag>
+                        <Tag color="blue" >默認</Tag>
                       )}
                     </div>
                     <div className="address-detail">

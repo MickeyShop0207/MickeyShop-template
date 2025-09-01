@@ -2,6 +2,28 @@
 
 一個基於 Cloudflare 全棧技術的現代化美妝電商平台。
 
+## ⚡ 快速開始
+
+### 🎆 一鍵設定 (新手推薦)
+```cmd
+# 在專案根目錄執行
+scripts\start.cmd
+```
+
+### ⚙️ 分步設定
+```cmd
+# 1. 基本設定
+scripts\setup.cmd
+
+# 2. Cloudflare 部署
+scripts\deploy.ps1
+```
+
+### 📁 詳細文檔
+- **[SETUP_GUIDE.md](./SETUP_GUIDE.md)** - 完整設定指南
+- **[scripts/README.md](./scripts/README.md)** - 腳本使用說明
+- **[scripts/TROUBLESHOOTING.md](./scripts/TROUBLESHOOTING.md)** - 故障排除
+
 ## 🚀 技術架構
 
 ### 前端 (Frontend)

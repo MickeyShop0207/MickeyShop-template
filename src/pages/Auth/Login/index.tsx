@@ -1,6 +1,8 @@
-// 登錄頁面
-import React, { useEffect } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+/**
+ * 會員登錄頁面
+ */
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import {
   Form,
   Input,
@@ -20,41 +22,43 @@ import {
   GoogleOutlined,
   FacebookOutlined
 } from '@ant-design/icons'
-import { useAuth, useLogin } from '../../../hooks'
-import { ROUTES } from '../../../router'
-import type { LoginRequest } from '../../../types'
+import { useAuthStore } from '@/stores/auth'
+import type { LoginCredentials } from '@/types'
 import './style.scss'
 
 const { Title, Text, Link: AntdLink } = Typography
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const { user } = useAuth()
-  const { mutate: login, isLoading, error } = useLogin()
+  const location = useLocation()
+  const { login, isLoading, error, clearError, isAuthenticated, user } = useAuthStore()
   const [form] = Form.useForm()
 
-  // 獲取重定向URL
-  const redirectUrl = searchParams.get('redirect') || ROUTES.HOME
+  // 獲取重定向URL（從 state 或 query 參數）
+  const from = (location.state as any)?.from?.pathname || '/'
 
   // 已登錄用戶重定向
   useEffect(() => {
-    if (user) {
-      navigate(redirectUrl, { replace: true })
+    if (isAuthenticated && user) {
+      navigate(from, { replace: true })
     }
-  }, [user, navigate, redirectUrl])
+  }, [isAuthenticated, user, navigate, from])
+
+  // 清除錯誤信息當組件卸載時
+  useEffect(() => {
+    return () => clearError()
+  }, [clearError])
 
   // 處理登錄提交
-  const handleSubmit = (values: LoginRequest) => {
-    login(values, {
-      onSuccess: () => {
-        message.success('登錄成功')
-        navigate(redirectUrl, { replace: true })
-      },
-      onError: (error: any) => {
-        message.error(error?.message || '登錄失敗，請重試')
-      }
-    })
+  const handleSubmit = async (values: LoginCredentials) => {
+    try {
+      await login(values)
+      message.success('登錄成功！')
+      navigate(from, { replace: true })
+    } catch (error) {
+      // 錯誤已經在 store 中處理
+      console.error('登錄失敗:', error)
+    }
   }
 
   // 第三方登錄
@@ -145,7 +149,7 @@ const LoginPage: React.FC = () => {
                   </Form.Item>
                   
                   <Link 
-                    to={ROUTES.FORGOT_PASSWORD} 
+                    to="/auth/forgot-password" 
                     className="forgot-password-link"
                   >
                     忘記密碼？
@@ -196,7 +200,7 @@ const LoginPage: React.FC = () => {
               <div className="register-link">
                 <Text>
                   還沒有帳戶？
-                  <Link to={ROUTES.REGISTER} className="register-text">
+                  <Link to="/auth/register" className="register-text">
                     立即註冊
                   </Link>
                 </Text>
@@ -246,7 +250,7 @@ const LoginPage: React.FC = () => {
 
       {/* 返回首頁連結 */}
       <div className="back-home">
-        <Link to={ROUTES.HOME} className="back-home-link">
+        <Link to="/" className="back-home-link">
           ← 返回首頁
         </Link>
       </div>
