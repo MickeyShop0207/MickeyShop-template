@@ -15,13 +15,13 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": false,
-    "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": false,
-    "noUncheckedIndexedAccess": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
 
     /* Path mapping */
     "baseUrl": ".",
@@ -34,15 +34,10 @@
       "@/utils/*": ["src/utils/*"],
       "@/types/*": ["src/types/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/assets/*": ["src/assets/*"],
-      "@/config/*": ["src/config/*"]
+      "@/config/*": ["src/config/*"],
+      "@/assets/*": ["src/assets/*"]
     }
   },
-  "include": [
-    "src",
-    "types/*.d.ts"
-  ],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

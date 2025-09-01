@@ -19,7 +19,10 @@
       "Bash(npx vite build:*)",
       "Bash(npm install:*)",
       "Bash(npm run dev:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run type-check:*)",
+      "Read(c:\\Users\\notel\\OneDrive\\Shop\\MickeyShop-Beauty\\.claude/**)"
     ],
     "deny": [],
     "ask": []
